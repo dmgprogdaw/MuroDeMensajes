@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+  <header>
+    <meta charset="UTF-8">
+    <title>Principal</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+        background-image: linear-gradient(to right bottom, lightskyblue, lightcoral);
+      }
+    </style>
+  </header>
+  <body>
+    <header class="container-fluid col-12 col-lg-10 mx-auto">
+      <div class="row">
+        <h1 class="col-12 text-center text-danger">BIENVENIDO AL INFIERNO CABRON</h1>
+      </div>
+    </header>
+
+    <main class="container-fluid col-12 col-lg-10 mx-auto">
+      <div class="row mt-5 mb-5">
+        <div class="col-6 mx-auto">
+          <a href="#" th:href="@{/mensajes}"><button type="button" class="btn btn-danger col-12">Mensajes</button></a>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-6 mx-auto">
+          <a href="#" th:href="@{/usuarios}"><button type="button" class="btn btn-danger col-12">Usuarios</button></a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
