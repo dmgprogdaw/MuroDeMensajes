@@ -1,16 +1,26 @@
 package com.david.muroMensajes.datos.usuarios;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.david.muroMensajes.datos.roles.Roles;
+
 @Entity
 public class Usuario implements UserDetails{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String nombreUsuario;
@@ -29,6 +39,9 @@ public class Usuario implements UserDetails{
 	
 	@Column
 	private String telefono;
+	
+	@OneToMany(mappedBy="usuario")
+	private List<Roles> roles = new ArrayList<Roles>();
 
 	public String getNombreUsuario() {
 		return nombreUsuario;
@@ -36,14 +49,6 @@ public class Usuario implements UserDetails{
 
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
-	}
-
-	public String getContrasenia() {
-		return contrasenia;
-	}
-
-	public void setContrasenia(String contrasenia) {
-		this.contrasenia = contrasenia;
 	}
 
 	public String getNombre() {
@@ -88,6 +93,11 @@ public class Usuario implements UserDetails{
 	public String getPassword() {
 
 		return this.contrasenia;
+	}
+	
+	public void setPassword(String contrasenia) {
+
+		this.contrasenia = contrasenia;
 	}
 
 	@Override
