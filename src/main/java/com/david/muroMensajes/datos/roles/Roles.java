@@ -21,7 +21,7 @@ public class Roles {
 	
 	@Id
 	@ManyToOne
-	@JoinColumn(name="FK_ususario")
+	@JoinColumn(name="FK_usuario")
 	private Usuario usuario;
 	
 	@Column

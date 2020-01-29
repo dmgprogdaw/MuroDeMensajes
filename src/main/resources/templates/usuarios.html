@@ -20,7 +20,7 @@
 
     <header class="masthead col-12">
     <div class="row p-5">
-      <div class="col-8">
+      <div class="col-10">
         
         <div class="mb-5"> <!--  mis datos -->
 			<div th:switch="${#lists.isEmpty(usuarios)}">
@@ -43,7 +43,9 @@
 				        <td th:text="${usuario.apellidos}"></td>
 				        <td th:text="${usuario.correo}"></td>
 				        <td th:text="${usuario.telefono}"></td>
+				        <td><a type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modificarUsuario">Modificar</a></td>
 				        <td><a type="button" class="btn btn-danger btn-sm" th:href="@{/usuarios/borrar/{nombreUsuario}(nombreUsuario=${usuario.nombreUsuario})}">Eliminar</a></td>
+				        <td><a type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#verUsuario">Visualizar</a></td>
 				      </tr>
 				    </table>
 			  </div>
@@ -51,7 +53,7 @@
         </div><!--  fin de mis datos -->
         
       </div>
-      <div class="col-3 float-right">
+      <div class="col-2 float-right">
         <div class="row p-5">
 			<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#crearUsuario" >
 				Nuevo Usuario
@@ -66,7 +68,7 @@
     </div>
   </header>
 
-  		<!-- Añadir carpeta modal -->
+  		<!-- Modal para insertar usuario -->
 		  <div class="modal fade" id="crearUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		    <div class="modal-dialog" role="document">
 		      <div class="modal-content">
@@ -92,7 +94,7 @@
 						      <input type="text" th:field="*{apellidos}"  placeholder="Inserta los apellidos" class="form-control" id="apellidos" required>
 						      <br>
 						      <label for="texto">Contraseña</label>
-						      <input type="password" th:field="*{contrasenia}"  placeholder="Inserta la contraseña" class="form-control" id="contrasenia" required>
+						      <input type="password" th:field="*{password}"  placeholder="Inserta la contraseña" class="form-control" id="password" required>
 						      <br>
 						      <label for="texto">Correo</label>
 						      <input type="email" th:field="*{correo}"  placeholder="Inserta el correo" class="form-control" id="correo" required>
@@ -110,6 +112,86 @@
                 </form>
 		      </div>
 		    </div>
+		  </div>
+		  
+		  <!-- Modal para modificar usuario -->
+		  <div class="modal fade" id="modificarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		    <div class="modal-dialog" role="document">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <h4 class="modal-title" id="exampleModalLabel">Nuevo Usuario</h4>
+		          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+		            <span aria-hidden="true">×</span>
+		          </button>
+		        </div>
+
+                <form action="#" th:action="@{/usuarios/aniadir}" th:object="${usuario}" method="post">
+			        <div class="modal-body">
+			        
+						  <div class="form-row">
+						    <div class="form-group col-md-12">
+						      <label for="texto">Usuario</label>
+						      <input type="text" th:field="*{nombreUsuario}"  placeholder="Inserta el usuario" class="form-control" id="nombreUsuario" >
+						      <br>
+						      <label for="texto">Nombre</label>
+						      <input type="text" th:field="*{nombre}"  placeholder="Inserta el nombre" class="form-control" id="nombre" required>
+						      <br>
+						      <label for="texto">Apellidos</label>
+						      <input type="text" th:field="*{apellidos}"  placeholder="Inserta los apellidos" class="form-control" id="apellidos" >
+						      <br>
+						      <label for="texto">Contraseña</label>
+						      <input type="password" th:field="*{password}"  placeholder="Inserta la contraseña" class="form-control" id="password" >
+						      <br>
+						      <label for="texto">Correo</label>
+						      <input type="email" th:field="*{correo}"  placeholder="Inserta el correo" class="form-control" id="correo" >
+						      <br>
+						      <label for="texto">Telefono</label>
+						      <input type="text" th:field="*{telefono}"  placeholder="Inserta el telefono" class="form-control" id="telefono" >
+						      <br>
+						    </div>
+		                  </div>
+			        </div>
+			        <div class="modal-footer">
+		                <input type="submit" value="Añadir" class="btn btn-primary float-right">
+		                <button data-dismiss="modal" class="btn btn-outline-danger float-right mr-2">Cancelar</button>
+			        </div>
+                </form>
+		      </div>
+		    </div>
+		  </div>
+		  
+		  
+		 <!-- Modal para vosualizar usuario -->
+		  <div class="modal fade bd-example-modal-lg" id="verUsuario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+		          <h4 class="modal-title" id="exampleModalLabel">Informacion del Usuario</h4>
+		          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+		            <span aria-hidden="true">×</span>
+		          </button>
+		        </div>
+				<div class="modal-body">
+					<ul class="list-group list-group-flush px-0" th:each="usuario: ${usuarios}">
+					  <span class="text-center">Nombre de Usuario:</span>
+					  <li class="list-group-item" th:text="${usuario.nombreUsuario}"></li>
+					  <span class="text-center">Contraseña:</span>
+					  <li class="list-group-item" th:text="${usuario.password}"></li>
+					  <span class="text-center">Nombre:</span>
+					  <li class="list-group-item" th:text="${usuario.nombre}"></li>
+					  <span class="text-center">Apellidos:</span>
+					  <li class="list-group-item" th:text="${usuario.apellidos}"></li>
+					  <span class="text-center">Correo:</span>
+					  <li class="list-group-item" th:text="${usuario.correo}"></li>
+					  <span class="text-center">Telefono:</span>
+					  <li class="list-group-item" th:text="${usuario.telefono}"></li>	
+					</ul>
+				</div>
+				<div class="modal-footer">
+		           <button data-dismiss="modal" class="btn btn-outline-danger float-right mr-2">Cancelar</button>
+			    </div>
+			    </div>
+			  </div>
 		  </div>
 </body>
 </html>

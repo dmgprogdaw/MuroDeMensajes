@@ -26,7 +26,7 @@ public class Usuario implements UserDetails{
 	private String nombreUsuario;
 	
 	@Column
-	private String contrasenia;
+	private String password;
 
 	@Column
 	private String nombre;
@@ -92,12 +92,12 @@ public class Usuario implements UserDetails{
 	@Override
 	public String getPassword() {
 
-		return this.contrasenia;
+		return this.password;
 	}
 	
-	public void setPassword(String contrasenia) {
+	public void setPassword(String password) {
 
-		this.contrasenia = contrasenia;
+		this.password = password;
 	}
 
 	@Override
