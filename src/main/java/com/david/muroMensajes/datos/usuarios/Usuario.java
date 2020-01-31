@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,8 +40,28 @@ public class Usuario implements UserDetails{
 	@Column
 	private String telefono;
 	
-	@OneToMany(mappedBy="usuario")
+	@ManyToMany(mappedBy="users")
 	private List<Roles> roles = new ArrayList<Roles>();
+	
+	public void addRol(Roles rol) {
+		
+		if(!roles.contains(rol)) {
+			
+			roles.add(rol);
+			rol.addUsers(this);
+		}
+	}
+	
+	
+	public List<Roles> getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(List<Roles> roles) {
+		this.roles = roles;
+	}
+
 
 	public String getNombreUsuario() {
 		return nombreUsuario;

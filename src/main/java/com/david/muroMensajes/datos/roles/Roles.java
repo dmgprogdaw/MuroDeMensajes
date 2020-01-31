@@ -1,49 +1,53 @@
 package com.david.muroMensajes.datos.roles;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 import com.david.muroMensajes.datos.usuarios.Usuario;
 
 @Entity
-@IdClass(RolesId.class)
 public class Roles {
 
 	@Id
 	@Column
-	private String nombre;
-	
-	@Id
-	@ManyToOne
-	@JoinColumn(name="FK_usuario")
-	private Usuario usuario;
+	private int codigo;
 	
 	@Column
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int codigo;
-
-	public String getNombre() {
-		return nombre;
+	private String nombreRol;
+	
+	@ManyToMany
+	private List<Usuario> users = new ArrayList<Usuario>();
+	
+	public void addUsers(Usuario usuario) {
+		
+		if(!users.contains(usuario)) {
+			
+			users.add(usuario);
+			usuario.addRol(this);
+		}
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public List<Usuario> getUsers() {
+		return users;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public void setUsers(List<Usuario> users) {
+		this.users = users;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public String getNombreRol() {
+		return nombreRol;
 	}
 
+	public void setNombreRol(String nombreRol) {
+		this.nombreRol = nombreRol;
+	}
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -51,6 +55,5 @@ public class Roles {
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
-	
 	
 }
